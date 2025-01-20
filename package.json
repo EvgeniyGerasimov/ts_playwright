@@ -1,0 +1,25 @@
+{
+  "name": "helsi-aqa-playwright-tests",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "npx playwright test",
+    "test-chromium-headed:local": "npx playwright test --project=chromium --headed",
+    "test-chromium-headed:qa": "ENV_NAME='qa1' ENV_CATEGORY='qa' npx playwright test --project=chromium --headed",
+    "format": "prettier --write '**/*.{ts,tsx,js,jsx,json,md}'"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@playwright/test": "^1.49.1",
+    "@types/node": "^22.10.2",
+    "@typescript-eslint/eslint-plugin": "^6.4.1",
+    "@typescript-eslint/parser": "^6.4.1",
+    "date-fns": "^4.1.0",
+    "dotenv": "^16.4.7",
+    "eslint": "^8.47.0",
+    "prettier": "^3.4.2"
+  }
+}
