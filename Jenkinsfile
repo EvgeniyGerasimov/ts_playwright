@@ -1,7 +1,5 @@
 pipeline {
-    agent {
-        dockerfile true
-    }
+    agent { dockerfile true }
     parameters {
         choice(name: 'ENV_NAME', choices: ['aqa', 'qa106', 'qa1', 'qa2', 'qa3', 'qa4', 'qa5', 'qa6', 'qa7', 'qa8', 'qa101', 'qa102', 'qa103', 'qa104', 'qa105', 'qa107', 'study'], description: 'Select the environment name')
         choice(name: 'ENV_CATEGORY', choices: ['aqa', 'qa', 'study'], description: 'Select the environment category')
