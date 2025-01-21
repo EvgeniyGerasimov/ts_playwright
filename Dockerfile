@@ -18,11 +18,14 @@ ENV HEADLESS_MODE=$HEADLESS_MODE
 # Set working directory
 WORKDIR /app
 
-# Create a directory for npm cache and set the appropriate permissions
-RUN mkdir -p /home/node/.npm && chown -R node:node /home/node/.npm
+# Switch to root user to ensure correct permissions for npm
+USER root
+
+# Create directory for npm cache
+RUN mkdir -p /home/seluser/.npm
 
 # Set npm cache directory
-ENV NPM_CONFIG_CACHE=/home/node/.npm
+ENV NPM_CONFIG_CACHE=/home/seluser/.npm
 
 # Copy package.json and package-lock.json
 COPY package*.json ./
