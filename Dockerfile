@@ -18,12 +18,18 @@ ENV HEADLESS_MODE=$HEADLESS_MODE
 # Set working directory
 WORKDIR /app
 
+# Create a directory for npm cache and set the appropriate permissions
+RUN mkdir -p /home/jenkins/.npm && chown -R jenkins:jenkins /home/jenkins/.npm
+
+# Set npm cache directory
+ENV NPM_CONFIG_CACHE=/home/jenkins/.npm
+
 # Copy package.json and package-lock.json
 COPY package*.json ./
 
 # Install dependencies
 RUN npm install
 
-# Copy the rest code
+# Copy the rest of the code
 COPY . .
 
