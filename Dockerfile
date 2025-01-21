@@ -26,14 +26,13 @@ RUN mkdir -p /.npm && chown -R 995:991 /.npm
 # Copy package.json and package-lock.json
 COPY package*.json ./
 
-# Install dependencies
-RUN npm install --verbose
-
-# Install Playwright dependencies and browsers
-RUN npx -y playwright install --with-deps
+# Install project dependencies
+RUN npm ci --verbose
 
 # Copy the rest of the code
 COPY . .
 
+# Switch back to the pwuser user
 USER pwuser
+
 
