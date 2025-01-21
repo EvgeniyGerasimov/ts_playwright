@@ -16,8 +16,8 @@ dotenv.config();
 
 export const envName = process.env.ENV_NAME || 'aqa';
 export const envCategory = process.env.ENV_CATEGORY || 'aqa';
-export const baseURL = process.env.BASE_URL || `https://${envName}.helsi.pro`;
-export const authHost = process.env.AUTH_HOST || `https://${envName}id.helsi.pro`;
+export const baseURL =  `https://${envName}.helsi.pro`;
+export const authHost = `https://${envName}id.helsi.pro`;
 export const { doctors, patients } = resources[envCategory];
 export const headless = process.env.HEADLES_MODE === 'true';
 
