@@ -27,7 +27,7 @@ RUN mkdir -p /.npm && chown -R 995:991 /.npm
 COPY package*.json ./
 
 # Install dependencies
-RUN npm install
+RUN npm install --verbose
 
 # Copy the rest of the code
 COPY . .
