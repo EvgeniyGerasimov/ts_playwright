@@ -18,11 +18,8 @@ ENV HEADLESS_MODE=$HEADLESS_MODE
 # Set working directory
 WORKDIR /app
 
-# Switch to root user to ensure correct permissions for npm
-USER root
-
 # Create directory for npm cache
-RUN mkdir -p /home/seluser/.npm
+RUN mkdir -p /home/seluser/.npm && chown -R seluser:seluser /home/seluser/.npm
 
 # Set npm cache directory
 ENV NPM_CONFIG_CACHE=/home/seluser/.npm
@@ -30,9 +27,12 @@ ENV NPM_CONFIG_CACHE=/home/seluser/.npm
 # Copy package.json and package-lock.json
 COPY package*.json ./
 
-# Install dependencies
+# Install dependencies as root (default user)
 RUN npm install
 
 # Copy the rest of the code
 COPY . .
+
+# Optionally, switch to 'seluser' to run the tests
+USER seluser
 
