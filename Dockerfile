@@ -21,7 +21,7 @@ WORKDIR /app
 USER root
 
 # Fix permissions for the .npm directory
-RUN chown -R 995:991 /.npm
+RUN mkdir -p /.npm && chown -R 995:991 /.npm
 
 # Copy package.json and package-lock.json
 COPY package*.json ./
