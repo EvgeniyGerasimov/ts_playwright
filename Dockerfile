@@ -1,4 +1,5 @@
 FROM mcr.microsoft.com/playwright:v1.49.1
+
 # Declare build-time arguments
 ARG ENV_NAME
 ARG ENV_CATEGORY
@@ -19,6 +20,9 @@ WORKDIR /app
 # Switch to root to fix permission issues
 USER root
 
+# Fix permissions for the .npm directory
+RUN chown -R 995:991 /.npm
+
 # Copy package.json and package-lock.json
 COPY package*.json ./
 
@@ -27,4 +31,5 @@ RUN npm install
 
 # Copy the rest of the code
 COPY . .
+
 
