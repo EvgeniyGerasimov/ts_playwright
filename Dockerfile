@@ -1,4 +1,4 @@
-FROM mcr.microsoft.com/playwright:v1.49.1
+FROM mcr.microsoft.com/playwright:v1.49.1-jammy
 
 # Declare build-time arguments
 ARG ENV_NAME
@@ -30,9 +30,10 @@ COPY package*.json ./
 RUN npm install --verbose
 
 # Install Playwright dependencies and browsers
-RUN npx playwright install --with-deps
+RUN npx -y playwright install --with-deps
 
 # Copy the rest of the code
 COPY . .
 
+USER pwuser
 
