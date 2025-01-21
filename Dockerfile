@@ -19,9 +19,6 @@ WORKDIR /app
 # Switch to root to fix permission issues
 USER root
 
-# Create directory for npm cache and set permissions
-RUN mkdir -p /.npm && chown -R seluser:seluser /.npm
-
 # Copy package.json and package-lock.json
 COPY package*.json ./
 
