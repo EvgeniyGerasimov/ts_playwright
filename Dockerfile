@@ -29,6 +29,9 @@ COPY package*.json ./
 # Install dependencies
 RUN npm install --verbose
 
+# Install Playwright dependencies and browsers
+RUN npx playwright install --with-deps
+
 # Copy the rest of the code
 COPY . .
 
