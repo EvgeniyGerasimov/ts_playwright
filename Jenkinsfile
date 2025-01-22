@@ -28,12 +28,14 @@ pipeline {
         stage('Verify Volume') {
             steps {
                 script {
-                    if (!fileExists('/workspace')) {
+                    // Проверяем, доступен ли том
+                    def volumeExists = fileExists('/workspace/docker_volume_test.txt')
+                    if (!volumeExists) {
                         error("Volume '/workspace' is not mounted or accessible!")
+                    } else {
+                        echo "Volume is mounted and accessible."
                     }
                 }
-                sh 'echo "Testing volume" > /workspace/volume_test.txt'
-                sh 'ls -l /workspace'
             }
         }
         stage('Run Tests') {
