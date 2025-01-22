@@ -3,7 +3,6 @@ pipeline {
         dockerfile {
             filename 'Dockerfile'
             additionalBuildArgs '--no-cache'
-            args '-v /var/jenkins_home/workspace:/workspace:rw'
         }
     }
     environment {
@@ -12,10 +11,10 @@ pipeline {
         SUIT = "${params.SUIT}"
         HEADLES_MODE = true
     }
-    parameters {
-        choice(name: 'ENV_NAME', choices: ['qa1', 'qa2', 'qa3'], description: 'Select the environment name')
-        choice(name: 'ENV_CATEGORY', choices: ['qa', 'study'], description: 'Select the environment category')
-        choice(name: 'SUIT', choices: ['smoke', 'regression', 'new'], description: 'Select the test suite')
+     parameters {
+        choice(name: 'ENV_NAME', choices: ['aqa', 'qa106', 'qa1', 'qa2', 'qa3', 'qa4', 'qa5', 'qa6', 'qa7', 'qa8', 'qa101', 'qa102', 'qa103', 'qa104', 'qa105', 'qa107', 'study'], description: 'Select the environment name')
+        choice(name: 'ENV_CATEGORY', choices: ['aqa', 'qa', 'study'], description: 'Select the environment category')
+        choice(name: 'SUIT', choices: ['finance', 'package9', 'package24', 'package60', 'package54', 'smoke', 'regression', 'new'], description: 'Select the test suite')
     }
     stages {
         stage('Print Parameters') {
@@ -25,16 +24,9 @@ pipeline {
                 echo "SUIT: ${SUIT}"
             }
         }
-        stage('Verify Volume') {
+        stage('Install Dependencies') {
             steps {
-                sh 'ls -la /workspace'
-                script {
-                    if (!fileExists('/workspace/docker_volume_test.txt')) {
-                        error("Volume '/workspace' is not mounted or accessible!")
-                    } else {
-                        echo "Volume is mounted and accessible."
-                    }
-                }
+                sh 'npm list @playwright/test --depth=0'
             }
         }
         stage('Run Tests') {
