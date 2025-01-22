@@ -10,7 +10,8 @@ ARG SUIT
 ENV ENV_NAME=$ENV_NAME
 ENV CATEGORY=$ENV_CATEGORY
 ENV SUIT=$SUIT
-ENV HEADLES_MODE = 'true'
+ENV NODE_ENV=development
+
 
 # Set working directory
 WORKDIR /tests
@@ -20,10 +21,10 @@ USER root
 RUN mkdir -p /.npm && chown -R 995:991 /.npm
 
 # Copy package.json and package-lock.json
-COPY package.json ./
+COPY package*.json ./
 
 # Install project dependencies and Playwright browsers
-RUN npm install && npx playwright install
+RUN npm cache clean --force && npm install && npx playwright install
 
 # Copy the rest of the code
 COPY . .
