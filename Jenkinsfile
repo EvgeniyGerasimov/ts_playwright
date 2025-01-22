@@ -8,7 +8,7 @@ pipeline {
     parameters {
         choice(name: 'ENV_NAME', choices: ['aqa', 'qa106', 'qa1', 'qa2', 'qa3', 'qa4', 'qa5', 'qa6', 'qa7', 'qa8', 'qa101', 'qa102', 'qa103', 'qa104', 'qa105', 'qa107', 'study'], description: 'Select the environment name')
         choice(name: 'ENV_CATEGORY', choices: ['aqa', 'qa', 'study'], description: 'Select the environment category')
-        choice(name: 'SUIT', choices: ['finance', 'package9', 'package24', 'package60', 'package54', 'smoke', 'regression'], description: 'Select the test suite')
+        choice(name: 'SUIT', choices: ['finance', 'package9', 'package24', 'package60', 'package54', 'smoke', 'regression', 'new'], description: 'Select the test suite')
     }
 
     stages {
@@ -29,7 +29,7 @@ pipeline {
                 sh "npm install @playwright/test"
                 sh "npx playwright install"
                 sh "npm init playwright"
-                sh "npx playwright test -g @${SUIT}"
+                sh "npx playwright test --disable-crash-reporter --project=chromium -g @${SUIT}"
             }
         }
         stage('Publish Report') {
