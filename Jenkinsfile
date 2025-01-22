@@ -28,8 +28,7 @@ pipeline {
                 sh "ls -l"
                 sh "npm install @playwright/test"
                 sh "npx playwright install"
-                sh "npm init playwright"
-                sh "npx playwright test --disable-crash-reporter --project=chromium -g @${SUIT}"
+                sh "npx playwright test  --project=chromium -g @${SUIT}"
             }
         }
         stage('Publish Report') {
