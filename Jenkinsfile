@@ -24,6 +24,8 @@ pipeline {
         }
         stage('Run Tests') {
             steps {
+                sh "npm install @playwright/test"
+                sh "npx playwright install"
                 sh "npx playwright test --project=chromium -g @${SUIT}"
             }
         }
