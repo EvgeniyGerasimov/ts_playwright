@@ -26,9 +26,10 @@ pipeline {
             steps {
                 sh "pwd" // Вывод текущей директории
                 sh "ls -l" // Список файлов в текущей директории
-                dir('tests') {
-                    sh "ls -l" // Проверка содержимого директории с тестами
-                    sh "npx playwright test --project=chromium -g @${SUIT}"
+                sh "npx playwright test --project=chromium -g @${SUIT}"
+                // dir('tests') {
+                //     sh "ls -l" // Проверка содержимого директории с тестами
+                //     sh "npx playwright test --project=chromium -g @${SUIT}"
                 }
             }
         }

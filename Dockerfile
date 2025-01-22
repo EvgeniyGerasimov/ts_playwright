@@ -15,7 +15,7 @@ ENV SUIT=$SUIT
 
 
 # Set working directory
-WORKDIR /app
+WORKDIR /test
 
 # Switch to root to fix permission issues
 USER root
@@ -24,12 +24,12 @@ USER root
 RUN mkdir -p /.npm && chown -R 995:991 /.npm
 
 # Copy package.json and package-lock.json
-COPY package*.json ./
+COPY package.json ./
 
 # Install project dependencies
-RUN npm install --legacy-peer-deps --verbose
+RUN npm install 
 RUN npx playwright install
-RUN npm install @playwright/test --save-dev
+RUN npm install @playwright/test 
 
 # Copy the rest of the code
 COPY . .
