@@ -27,6 +27,11 @@ pipeline {
         }
         stage('Verify Volume') {
             steps {
+                script {
+                    if (!fileExists('/workspace')) {
+                        error("Volume '/workspace' is not mounted or accessible!")
+                    }
+                }
                 sh 'echo "Testing volume" > /workspace/volume_test.txt'
                 sh 'ls -l /workspace'
             }
