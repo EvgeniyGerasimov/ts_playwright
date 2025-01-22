@@ -1,5 +1,13 @@
 pipeline {
-    agent { dockerfile { filename 'Dockerfile' } }
+    agent {
+        dockerfile {
+            filename 'Dockerfile'
+        }
+    }
+    options {
+        // Настройка volume для передачи данных
+        dockerVolume('/var/jenkins_home/workspace:/workspace')
+    }
     environment {
         ENV_NAME = "${params.ENV_NAME}"
         ENV_CATEGORY = "${params.ENV_CATEGORY}"
@@ -7,43 +15,35 @@ pipeline {
         HEADLES_MODE = true
     }
     parameters {
-        choice(name: 'ENV_NAME', choices: ['aqa', 'qa106', 'qa1', 'qa2', 'qa3', 'qa4', 'qa5', 'qa6', 'qa7', 'qa8', 'qa101', 'qa102', 'qa103', 'qa104', 'qa105', 'qa107', 'study'], description: 'Select the environment name')
-        choice(name: 'ENV_CATEGORY', choices: ['aqa', 'qa', 'study'], description: 'Select the environment category')
-        choice(name: 'SUIT', choices: ['finance', 'package9', 'package24', 'package60', 'package54', 'smoke', 'regression', 'new'], description: 'Select the test suite')
+        choice(name: 'ENV_NAME', choices: ['qa1', 'qa2', 'qa3'], description: 'Select environment name')
+        choice(name: 'ENV_CATEGORY', choices: ['qa', 'study'], description: 'Select environment category')
+        choice(name: 'SUIT', choices: ['smoke', 'regression'], description: 'Select test suite')
     }
-
     stages {
         stage('Print Parameters') {
             steps {
-                script {
-                    echo "Selected Parameters:"
-                    echo "ENV_NAME: ${ENV_NAME}"
-                    echo "ENV_CATEGORY: ${ENV_CATEGORY}"
-                    echo "SUIT: ${SUIT}"
-                }
+                echo "ENV_NAME: ${ENV_NAME}"
+                echo "ENV_CATEGORY: ${ENV_CATEGORY}"
+                echo "SUIT: ${SUIT}"
             }
         }
-        stage('Prepare Environment') {
+        stage('Verify Volume') {
             steps {
-                // Проверка окружения перед запуском тестов
-                sh 'echo "Node.js version:" && node -v'
-                sh 'echo "NPM version:" && npm -v'
-                sh 'echo "Current directory:" && pwd'
-                sh 'echo "Listing files:" && ls -l'
-                // Проверка установки зависимостей
-                sh 'npm list @playwright/test --depth=0 || npm install @playwright/test'
-                sh 'npx playwright install'
+                script {
+                    // Записываем тестовый файл в volume
+                    sh 'echo "Testing volume" > /workspace/volume_test.txt'
+                    // Проверяем содержимое volume
+                    sh 'ls -l /workspace'
+                }
             }
         }
         stage('Run Tests') {
             steps {
-                // Запуск тестов Playwright
                 sh "npx playwright test --project=chromium -g @${SUIT}"
             }
         }
         stage('Publish Report') {
             steps {
-                // Сохранение отчёта о тестах
                 archiveArtifacts artifacts: 'playwright-report/**', allowEmptyArchive: true
                 publishHTML(target: [
                     allowMissing: false,

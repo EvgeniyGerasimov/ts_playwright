@@ -5,27 +5,29 @@ ARG ENV_NAME
 ARG ENV_CATEGORY
 ARG SUIT
 
-# Set environment variables
+# Set environment variables using the build-time arguments
 ENV ENV_NAME=$ENV_NAME
 ENV ENV_CATEGORY=$ENV_CATEGORY
 ENV SUIT=$SUIT
-ENV NODE_ENV=development
 
 # Set working directory
 WORKDIR /tests
 
-# Fix permissions
+# Switch to root to fix permission issues
 USER root
 RUN mkdir -p /.npm && chown -R 995:991 /.npm
 
-# Copy dependency files
+# Copy package.json and package-lock.json
 COPY package*.json ./
 
-# Install dependencies and Playwright browsers
-RUN npm cache clean --force && npm install --force && npx playwright install && npm list --depth=0
+# Install project dependencies and Playwright browsers
+RUN npm install --force && npx playwright install
+
+# Verify Playwright installation and dependencies
+RUN npm list @playwright/test --depth=0
 
 # Copy the rest of the code
 COPY . .
 
-# Switch back to the default user
+# Switch back to the pwuser user
 USER pwuser
