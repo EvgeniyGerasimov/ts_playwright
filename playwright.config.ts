@@ -64,6 +64,7 @@ export default defineConfig({
             '--disable-crashpad', 
             '--disable-dev-shm-usage'
           ],
+          headless: headless,
         },
       },
     },
