@@ -28,7 +28,7 @@ pipeline {
                 sh "ls -l"
                 sh "npm install @playwright/test"
                 sh "npx playwright install"
-                sh "npm init playwright@1.49.1"
+                sh "npm init playwright"
                 sh "npx playwright test -g @${SUIT}"
             }
         }
