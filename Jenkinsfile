@@ -23,11 +23,20 @@ pipeline {
                 }
             }
         }
-        stage('Run Tests') {
+        stage('Prepare Environment') {
             steps {
                 // Проверка окружения перед запуском тестов
-                sh 'node -v && npm -v'
-                sh 'pwd && ls -l'
+                sh 'echo "Node.js version:" && node -v'
+                sh 'echo "NPM version:" && npm -v'
+                sh 'echo "Current directory:" && pwd'
+                sh 'echo "Listing files:" && ls -l'
+                // Проверка установки зависимостей
+                sh 'npm list @playwright/test --depth=0 || npm install @playwright/test'
+                sh 'npx playwright install'
+            }
+        }
+        stage('Run Tests') {
+            steps {
                 // Запуск тестов Playwright
                 sh "npx playwright test --project=chromium -g @${SUIT}"
             }
