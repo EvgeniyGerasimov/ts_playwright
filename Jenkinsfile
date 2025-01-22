@@ -10,7 +10,7 @@ pipeline {
         choice(name: 'ENV_CATEGORY', choices: ['aqa', 'qa', 'study'], description: 'Select the environment category')
         choice(name: 'SUIT', choices: ['finance', 'package9', 'package24', 'package60', 'package54', 'smoke', 'regression'], description: 'Select the test suite')
     }
-  
+
     stages {
         stage('Print Parameters') {
             steps {
@@ -24,10 +24,9 @@ pipeline {
         }
         stage('Run Tests') {
             steps {
-                sh "pwd" 
-                sh "ls -l" 
+                sh "pwd"
+                sh "ls -l"
                 sh "npx playwright test -g @${SUIT}"
-                }
             }
         }
         stage('Publish Report') {
@@ -44,3 +43,4 @@ pipeline {
             }
         }
     }
+}
