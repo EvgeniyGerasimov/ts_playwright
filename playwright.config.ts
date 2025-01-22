@@ -58,7 +58,11 @@ export default defineConfig({
         deviceScaleFactor: undefined,
         viewport: null, // Maximize browser window
         launchOptions: {
-          args: ['--window-size=1920,1080'],
+          args: [
+            '--window-size=1920,1080',
+            '--no-sandbox', 
+            '--disable-dev-shm-usage'
+          ],
           headless: headless,
         },
       },

@@ -24,11 +24,7 @@ pipeline {
         }
         stage('Run Tests') {
             steps {
-                sh "pwd"
-                sh "ls -l"
-                sh "npm install @playwright/test"
-                sh "npx playwright install"
-                sh "npx playwright test  --project=chromium -g @${SUIT}"
+                sh "npx playwright test --project=chromium -g @${SUIT}"
             }
         }
         stage('Publish Report') {
