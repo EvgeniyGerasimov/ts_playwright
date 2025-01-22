@@ -28,8 +28,8 @@ COPY package.json ./
 
 # Install project dependencies
 RUN npm install 
-RUN npm playwright install
-RUN npm install @playwright/test 
+# RUN npm playwright install
+# RUN npm install @playwright/test 
 
 # Copy the rest of the code
 COPY . .
