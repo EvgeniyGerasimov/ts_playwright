@@ -24,7 +24,7 @@ RUN mkdir -p /.npm && chown -R 995:991 /.npm
 COPY package*.json ./
 
 # Install project dependencies and Playwright browsers
-RUN npm install && npx playwright install
+RUN npm cache clean --force && npm install && npx playwright install
 
 # Copy the rest of the code
 COPY . .
