@@ -28,7 +28,7 @@ RUN npm install --force && npx playwright install
 RUN npm list @playwright/test --depth=0
 
 # Add a test file to verify volume mount
-RUN echo "Volume setup verified" > /workspace/docker_volume_test.txt
+RUN echo \"Volume setup verified\" > /workspace/docker_volume_test.txt
 
 # Copy the rest of the code
 COPY . .
