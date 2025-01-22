@@ -15,7 +15,7 @@ ENV SUIT=$SUIT
 
 
 # Set working directory
-WORKDIR /test
+WORKDIR /tests
 
 # Switch to root to fix permission issues
 USER root
