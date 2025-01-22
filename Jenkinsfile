@@ -26,6 +26,7 @@ pipeline {
             steps {
                 sh "pwd"
                 sh "ls -l"
+                sh "npm init playwright@latest"
                 sh "npx playwright test -g @${SUIT}"
             }
         }
