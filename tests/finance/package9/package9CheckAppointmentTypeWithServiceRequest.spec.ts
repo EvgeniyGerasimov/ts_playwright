@@ -23,7 +23,7 @@ const episodeType = episodeTypes.treatment;
 const financePackage = financePackages.package9;
 
 test.use({ receptionOptions: firstLineReception, service: diagnosticService });
-test('Check Package9 with service request', { tag: ['@finance', '@package9', '@new'] },
+test('Check Package9 with service request', { tag: ['@finance', '@package9',] },
   async ({ app, patient, serviceRequest }) => {
     await app.headlessLogin(psychiatristDoctor);
 

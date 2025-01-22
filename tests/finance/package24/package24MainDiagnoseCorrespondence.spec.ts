@@ -21,7 +21,7 @@ const errorMessageText = financeMessages.missingDiagnosesForPackage24Text;
 test.use({doctor: psychiatristDoctor, patientId:patientId})
 
 diagnosesFor24Package.forEach((diagnose) => {
-  test(`Check correspondence of main diagnose ${diagnose.code} to Package 24`, { tag: ['@finance', '@package24'] },
+  test(`Check correspondence of main diagnose ${diagnose.code} to Package 24`, { tag: ['@finance', '@package24', '@new'] },
     async ({ app }) => {
 
       await app.reception.selectAppointmentType(appointmentType);

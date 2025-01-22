@@ -22,7 +22,7 @@ const validAppointmentTypes = Object.entries(appointmentTypes).filter(
 
 test.use({doctor: psychiatristDoctor, patientId:patientId})
 
-test('Check Package9 with intervention appointment (negative)', { tag: ['@finance', '@package9','@new'] },
+test('Check Package9 with intervention appointment (negative)', { tag: ['@finance', '@package9'] },
   async ({ app }) => {
     const appointmentType = appointmentTypes.intervention;
 
