@@ -25,7 +25,7 @@ COPY package*.json ./
 
 RUN rm package-lock.json
 # Install project dependencies and Playwright browsers
-RUN npm cache clean --force && npm install && npx playwright install
+RUN npm cache clean --force && npm install --force && npx playwright install
 
 # Copy the rest of the code
 COPY . .
