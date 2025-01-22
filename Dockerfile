@@ -23,6 +23,7 @@ RUN mkdir -p /.npm && chown -R 995:991 /.npm
 # Copy package.json and package-lock.json
 COPY package*.json ./
 
+RUN rm package-lock.json
 # Install project dependencies and Playwright browsers
 RUN npm cache clean --force && npm install && npx playwright install
 
