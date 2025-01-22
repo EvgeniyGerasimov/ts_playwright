@@ -19,13 +19,10 @@ RUN mkdir -p /.npm && chown -R 995:991 /.npm
 COPY package*.json ./
 
 # Clean npm cache and install dependencies
-RUN npm cache clean --force && npm install --force && npx playwright install
+RUN npm install  && npx playwright install
 
 # Copy the rest of the code
 COPY . .
-
-# Debugging step (optional)
-RUN npm list --depth=0 && npx playwright test --version
 
 # Switch back to non-root user
 USER pwuser

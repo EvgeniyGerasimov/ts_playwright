@@ -1,5 +1,5 @@
 pipeline {
-    agent { dockerfile true }
+    agent { dockerfile { filename 'Dockerfile' } }
     environment {
         ENV_NAME = "${params.ENV_NAME}"
         ENV_CATEGORY = "${params.ENV_CATEGORY}"
@@ -25,12 +25,16 @@ pipeline {
         }
         stage('Run Tests') {
             steps {
-         
+                // Проверка окружения перед запуском тестов
+                sh 'node -v && npm -v'
+                sh 'pwd && ls -l'
+                // Запуск тестов Playwright
                 sh "npx playwright test --project=chromium -g @${SUIT}"
             }
         }
         stage('Publish Report') {
             steps {
+                // Сохранение отчёта о тестах
                 archiveArtifacts artifacts: 'playwright-report/**', allowEmptyArchive: true
                 publishHTML(target: [
                     allowMissing: false,
