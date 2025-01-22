@@ -15,8 +15,8 @@ WORKDIR /tests
 
 # Switch to root to fix permission issues
 USER root
-RUN mkdir -p /workspace && chown -R 995:991 /workspace
-RUN mkdir -p /.npm && chown -R 995:991 /.npm
+RUN mkdir -p /workspace && chmod -R 777 /workspace
+RUN mkdir -p /.npm && chmod -R 777 /.npm
 
 # Copy package.json and package-lock.json
 COPY package*.json ./
@@ -28,7 +28,7 @@ RUN npm install --force && npx playwright install
 RUN npm list @playwright/test --depth=0
 
 # Add a test file to verify volume mount
-RUN echo \"Volume setup verified\" > /workspace/docker_volume_test.txt
+RUN echo "Docker volume test" > /workspace/docker_volume_test.txt
 
 # Copy the rest of the code
 COPY . .
