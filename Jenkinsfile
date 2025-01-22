@@ -24,12 +24,9 @@ pipeline {
         }
         stage('Run Tests') {
             steps {
-                sh "pwd" // Вывод текущей директории
-                sh "ls -l" // Список файлов в текущей директории
+                sh "pwd" 
+                sh "ls -l" 
                 sh "npx playwright test -g @${SUIT}"
-                // dir('tests') {
-                //     sh "ls -l" // Проверка содержимого директории с тестами
-                //     sh "npx playwright test --project=chromium -g @${SUIT}"
                 }
             }
         }
