@@ -4,16 +4,15 @@ FROM mcr.microsoft.com/playwright:v1.49.1-noble
 # Declare build-time arguments
 ARG ENV_NAME
 ARG ENV_CATEGORY
-ARG BASE_URL
-ARG AUTH_HOST
-ARG HEADLESS_MODE
+ARG SUIT
+
 
 # Set environment variables using the build-time arguments
 ENV ENV_NAME=$ENV_NAME
 ENV ENV_CATEGORY=$ENV_CATEGORY
-ENV BASE_URL=$BASE_URL
-ENV AUTH_HOST=$AUTH_HOST
-ENV HEADLESS_MODE=$HEADLESS_MODE
+ENV SUIT=$SUIT
+
+
 
 # Set working directory
 WORKDIR /app
@@ -34,9 +33,6 @@ RUN npm install @playwright/test --save-dev
 
 # Copy the rest of the code
 COPY . .
-
-# Copy the tests directory
-COPY ./tests ./tests
 
 # Switch back to the pwuser user
 USER pwuser
