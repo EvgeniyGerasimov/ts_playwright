@@ -1,4 +1,5 @@
-FROM mcr.microsoft.com/playwright:v1.49.1-jammy
+# Dockerfile
+FROM mcr.microsoft.com/playwright:v1.49.1-noble
 
 # Declare build-time arguments
 ARG ENV_NAME
@@ -27,13 +28,15 @@ RUN mkdir -p /.npm && chown -R 995:991 /.npm
 COPY package*.json ./
 
 # Install project dependencies
-RUN npm install --verbose
-
+RUN npm install --legacy-peer-deps --verbose
 RUN npx playwright install
 RUN npm install @playwright/test --save-dev
 
 # Copy the rest of the code
 COPY . .
+
+# Copy the tests directory
+COPY ./tests ./tests
 
 # Switch back to the pwuser user
 USER pwuser
