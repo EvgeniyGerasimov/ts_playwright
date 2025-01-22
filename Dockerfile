@@ -1,34 +1,31 @@
-# Dockerfile
 FROM mcr.microsoft.com/playwright:v1.49.1-noble
 
-# Declare build-time arguments
+# Set environment variables
 ARG ENV_NAME
 ARG ENV_CATEGORY
 ARG SUIT
-
-# Set environment variables using the build-time arguments
 ENV ENV_NAME=$ENV_NAME
 ENV CATEGORY=$ENV_CATEGORY
 ENV SUIT=$SUIT
-ENV NODE_ENV=development
-
 
 # Set working directory
 WORKDIR /tests
 
-# Switch to root to fix permission issues
+# Fix permissions
 USER root
 RUN mkdir -p /.npm && chown -R 995:991 /.npm
 
-# Copy package.json and package-lock.json
+# Copy dependency files
 COPY package*.json ./
 
-RUN rm package-lock.json
-# Install project dependencies and Playwright browsers
+# Clean npm cache and install dependencies
 RUN npm cache clean --force && npm install --force && npx playwright install
 
 # Copy the rest of the code
 COPY . .
 
-# Switch back to the pwuser user
+# Debugging step (optional)
+RUN npm list --depth=0 && npx playwright test --version
+
+# Switch back to non-root user
 USER pwuser
