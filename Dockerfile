@@ -16,6 +16,7 @@ WORKDIR /tests
 
 # Install necessary libraries
 RUN apt-get update && apt-get install -y \
+    libnss3 libatk1.0-0 libatk-bridge2.0-0 libcups2 libxcomposite1 libxrandr2 libgbm1 libpango1.0-0 libasound2 \
     && apt-get clean && rm -rf /var/lib/apt/lists/*
 
 # Switch to root to fix permission issues

@@ -60,7 +60,8 @@ export default defineConfig({
         launchOptions: {
           args: [
             '--window-size=1920,1080',
-            '--no-sandbox', 
+            '--no-sandbox',
+            '--disable-crashpad', 
             '--disable-dev-shm-usage'
           ],
           headless: headless,
