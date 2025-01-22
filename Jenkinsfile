@@ -2,11 +2,9 @@ pipeline {
     agent {
         dockerfile {
             filename 'Dockerfile'
+            additionalBuildArgs '--no-cache'
+            args '-v /var/jenkins_home/workspace:/workspace'
         }
-    }
-    options {
-        // Настройка volume для передачи данных
-        dockerVolume('/var/jenkins_home/workspace:/workspace')
     }
     environment {
         ENV_NAME = "${params.ENV_NAME}"
@@ -29,12 +27,8 @@ pipeline {
         }
         stage('Verify Volume') {
             steps {
-                script {
-                    // Записываем тестовый файл в volume
-                    sh 'echo "Testing volume" > /workspace/volume_test.txt'
-                    // Проверяем содержимое volume
-                    sh 'ls -l /workspace'
-                }
+                sh 'echo "Testing volume" > /workspace/volume_test.txt'
+                sh 'ls -l /workspace'
             }
         }
         stage('Run Tests') {
