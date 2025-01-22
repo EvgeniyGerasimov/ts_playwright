@@ -24,10 +24,12 @@ USER root
 RUN mkdir -p /.npm && chown -R 995:991 /.npm
 
 # Copy package.json and package-lock.json
-COPY package*.json ./
+COPY package.json ./
 
 # Install project dependencies
-RUN npm ci --verbose
+RUN npm install --verbose
+
+RUN npx playwright install
 
 # Copy the rest of the code
 COPY . .
