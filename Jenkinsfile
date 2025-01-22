@@ -24,11 +24,6 @@ pipeline {
                 echo "SUIT: ${SUIT}"
             }
         }
-        stage('Install Dependencies') {
-            steps {
-                sh 'npm list @playwright/test --depth=0'
-            }
-        }
         stage('Run Tests') {
             steps {
                 sh "npx playwright test --project=chromium -g @${SUIT}"
