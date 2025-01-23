@@ -25,6 +25,6 @@ RUN npm list --depth=0
 
 COPY . .
 RUN npm list @playwright/test --depth=0
-RUN chown -R 995:991 "/.npm"
+
 
 
