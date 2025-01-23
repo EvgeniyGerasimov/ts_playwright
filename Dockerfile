@@ -16,16 +16,14 @@ ENV PRINT_API_REQUEST=$PRINT_API_REQUEST
 WORKDIR /tests
 
 USER root
-RUN mkdir -p /workspace && chown -R 995:991 /workspace
-RUN mkdir -p /.npm && chown -R 995:991 /.npm
+
 
 COPY package*.json ./
 
-RUN npm install && npx playwright install
+RUN npm install  && npx playwright install
 RUN npm list --depth=0
 
 COPY . .
 RUN npm list @playwright/test --depth=0
 
-# Switch back to the pwuser user
-USER pwuser
+
