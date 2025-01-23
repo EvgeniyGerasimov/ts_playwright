@@ -13,7 +13,7 @@ pipeline {
         PRINT_API_RESPONSE = "${params.PRINT_API_RESPONSE}"
         HEADLES_MODE = true
     }
-     parameters {
+    parameters {
         choice(name: 'PROJECT', choices: ['chromium', 'firefox', 'webkit'], description: 'Select browser')
         choice(name: 'ENV_NAME', choices: ['aqa', 'qa106', 'qa1', 'qa2', 'qa3', 'qa4', 'qa5', 'qa6', 'qa7', 'qa8', 'qa101', 'qa102', 'qa103', 'qa104', 'qa105', 'qa107', 'study'], description: 'Select environment')
         choice(name: 'ENV_CATEGORY', choices: ['aqa', 'qa', 'study'], description: 'Select environment')
@@ -24,15 +24,15 @@ pipeline {
     stages {
         stage('Print Parameters') {
             steps {
-                echo "PROJECT: ${PROJECT}"
-                echo "ENV_NAME: ${ENV_NAME}"
-                echo "ENV_CATEGORY: ${ENV_CATEGORY}"
-                echo "SUIT: ${SUIT}"
+                echo "PROJECT: ${params.PROJECT}"  
+                echo "ENV_NAME: ${params.ENV_NAME}"  
+                echo "ENV_CATEGORY: ${params.ENV_CATEGORY}" 
+                echo "SUIT: ${params.SUIT}" 
             }
         }
         stage('Run Tests') {
             steps {
-                sh "npx playwright test --project=${params.PROJECT} -g @${SUIT}"
+                sh "npx playwright test --project=${params.PROJECT} -g @${params.SUIT}"  
             }
         }
         stage('Publish Report') {
