@@ -4,8 +4,8 @@ WORKDIR /tests
 
 COPY package*.json ./
 
-RUN npm install --production && npx playwright install
-
+RUN npm install @playwright/test
+RUN npx playwright install
 COPY . .
 
 RUN npm list @playwright/test --depth=0
