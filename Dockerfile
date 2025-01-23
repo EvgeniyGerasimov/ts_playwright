@@ -4,7 +4,7 @@ WORKDIR /tests
 
 COPY package*.json ./
 
-# Настраиваем npm кеш
+# Настраиваем кеш npm
 RUN npm config set cache /tests/.npm-cache --global
 
 # Устанавливаем зависимости
@@ -15,8 +15,11 @@ COPY . .
 # Проверяем версию @playwright/test
 RUN npm list @playwright/test --depth=0
 
-# Устанавливаем пользователя pwuser
-USER pwuser
+# Переключаемся на root для изменения прав доступа
+USER root
+RUN chown -R 995:991 /tests/.npm-cache
+
+
 
 
 
