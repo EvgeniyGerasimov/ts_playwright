@@ -2,7 +2,8 @@ pipeline {
     agent {
         dockerfile {
             filename 'Dockerfile'
-            args '-u root'
+            args '--user root'
+            args '-w /helsi-aga-playwright-tests'
         }
     }
     environment {

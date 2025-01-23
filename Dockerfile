@@ -1,6 +1,5 @@
 FROM mcr.microsoft.com/playwright:v1.49.1-noble
-USER root
-WORKDIR /tests
+WORKDIR /helsi-aga-playwright-tests
 COPY package*.json ./
 RUN npm install @playwright/test
 RUN npx playwright install
