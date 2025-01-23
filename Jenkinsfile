@@ -2,7 +2,7 @@ pipeline {
     agent {
         dockerfile {
             filename 'Dockerfile'
-            args '--user root -w /helsi-aga-playwright-tests'
+            args '--user root'
             
         }
     }
